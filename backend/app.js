@@ -15,10 +15,10 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 
 const config = {
-  region:"ap-south-1" ,
+  region:process.env.REGION, 
   credentials: {
-      accessKeyId: "AKIA5GO3BLBS43KN65H7",
-      secretAccessKey:"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"
+    accessKeyId:process.env.ACCESS_KEY_ID,
+    secretAccessKey:process.env.SECRET_ACCESS_KEY
   }
 }
 
@@ -26,7 +26,7 @@ app.post('/start-upload', async(req, res) => {
   const s3 = new S3Client(config);
   
     const params = {
-      Bucket: 'gurpreet-28',
+      Bucket:process.env.BUCKET ,
       Key: req.body.key,
       ContentType: req.body.contentType,
     };
@@ -43,7 +43,7 @@ app.post('/start-upload', async(req, res) => {
   
 
     const params = {
-      Bucket: 'gurpreet-28',
+      Bucket:process.env.BUCKET,
       Key: req.body.key,
       PartNumber: req.body.partNumber,
       UploadId: req.body.uploadId,
@@ -64,7 +64,7 @@ app.post('/start-upload', async(req, res) => {
     console.log(req.body.key)
     console.log(req.body.uploadId)
     const params = {
-      Bucket: 'gurpreet-28',
+      Bucket:process.env.BUCKET,
       Key: req.body.key,
       MultipartUpload: {
         Parts: req.body.parts,
